@@ -4,19 +4,25 @@ class ConceptoList extends React.Component {
     render() { 
       if( this.props.listado.length>0){
       return (
-        <div>     
+        <p>     
         {
             this.props.listado.map((concepto) => {
-              return <li><div key={concepto.idConcepto}>
-              {concepto.a+ '-' +concepto.b}
-              <input
-                className="clase_concepto"
+              return <label className="row center-xs">
+                <input
+                className="clase_concepto "
                 name={concepto.idConcepto}
                 type="checkbox" />
-            </div></li>
+
+                <span key={concepto.idConcepto} className="mdc-checkbox">
+                {concepto.a+ '-' +concepto.b}
+              
+                
+                </span>
+            </label>
             })
           }
-        </div>
+          
+        </p>
       )}
       else{
         return <p className="text-center">Cargando conceptos</p>

@@ -11,17 +11,17 @@ class FiltroFecha extends React.Component {
     }  
      render() {
         return(
-          <form onSubmit={(e) => this.addNewFiltro(e)}>
+          <form className="margen" onSubmit={(e) => this.addNewFiltro(e)}>
           <div className = "SplitPane">
-           <div className="SplitPane-Izq">
+           <div >
             <label>Del:</label>
             <input ref={ ( input ) => this.del = input } type="date" name="Del"/>
             <label>Al:</label>
             <input ref={ ( input ) => this.al = input } type="date" name="Al" />
            </div>
-           <div className="SplitPane-Der">
+           <div >
             <div>
-            <button type="submit">Buscar</button>
+            <button  className="waves-effect waves-light btn botonazul2 "type="submit">Buscar<i className="large material-icons left">search</i></button>
             </div>
            </div>
           </div>

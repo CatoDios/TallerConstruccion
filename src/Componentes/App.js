@@ -69,34 +69,37 @@ class App extends React.Component {
   render() {
     if (this.state.pagos.length > 0) {
       return (
-        <div className="container-fluid">
+        <div className="">
           <h3>Estado de pagos por alumno</h3>
           <hr/>
           <Alumno alumno = {this.state.pagos[0].alumno}/>
           <hr/>
-          <div className="SplitPane">
-            <div className="SplitPane-left">
-              <h2>Conceptos</h2>
-              <ul><ConceptoList listado={this.conceptos}/></ul>
-              <a className="botonazul" onClick={this.filtrarConcepto} href="#">Buscar</a>
+          <div className="SplitPane row">
+            <div className="SplitPane-left col-xs-6 centrar">
+              <h4>Conceptos</h4>
+              <form action="#"><ConceptoList listado={this.conceptos}/></form>
+              <a className="botonazul waves-effect waves-light btn " onClick={this.filtrarConcepto} href="#">Buscar<i className="large material-icons left">search</i></a>
            </div>
-            <div className="SplitPane-right">
+            <div className="SplitPane-right col-xs-6 centrar">
               <FiltroFecha Fechas={this.FiltrarFecha} />
             </div>
           </div>
-          <table className="table">
+          <div className="total row center-xs">
+          <table className="table centrar">
             <TableHeader/>
             <PagoList listado={this.state.pageOfItems} />
           </table>
+          </div>
           <div> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage} /></div>
           <div className="SplitPane">
             <div className="SplitPane-right">
             <Importe pagos={this.state.pagocero}/>
             </div>
-            <div clasName="SplitPane-left">
-            <button className="imprimir">Imprimir</button>
+            <div className="SplitPane-left">
+            <button className="imprimir waves-effect waves-light btn ">Imprimir<i className="large material-icons left">local_printshop</i></button>
             </div>
           </div>
+          
 
         </div>
       )
@@ -116,12 +119,20 @@ class App extends React.Component {
         return response.json()
       })
       .then((pagos) => {
-        this.setState({ pagocero: pagos })
+        if(pagos.length==0){
+          alert("No se encuentran fechas");
+          //this.setState({pagocero: []})
+        }
+        else{
+          this.setState({ pagocero: pagos });
+        }
+        
       })
       .catch(error => {
         // si hay algún error lo mostramos en consola
         console.error(error)
       });
+     
   }
 
 
@@ -343,12 +354,12 @@ class Paginacion extends React.Component {
       var pager = this.state.pager;
 
       return (
-          <ul className="pagination">
+          <ul className="pagination row center-xs">
               <li className={pager.currentPage === 1 ? 'disabled' : ''}>
                   <a onClick={ ()=>this.setPage(1)}>First</a>
               </li>
               <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                  <a onClick={()=> this.setPage(pager.currentPage - 1)}>Previous</a>
+                  <a onClick={()=> this.setPage(pager.currentPage - 1)}><i class="material-icons">chevron_left</i></a>
               </li>
               {pager.pages.map((page, index) =>
                   <li key={index+28} className={pager.currentPage === page ? 'active' : ''}>
@@ -356,7 +367,7 @@ class Paginacion extends React.Component {
                   </li>
               )}
               <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                  <a onClick={()=> this.setPage(pager.currentPage + 1)}>Next</a>
+                  <a onClick={()=> this.setPage(pager.currentPage + 1)}><i class="material-icons">chevron_right</i></a>
               </li>
               <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
                   <a onClick={()=> this.setPage(pager.totalPages)}>Last</a>

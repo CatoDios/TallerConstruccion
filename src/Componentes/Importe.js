@@ -18,7 +18,7 @@ class Importe extends React.Component {
       render() {
         return(
           <div>
-            <button className="importe" onClick={this.CalcularImporte}>Importe</button>
+            <button className="importe waves-effect waves-light btn " onClick={this.CalcularImporte}>Importe<i className="large material-icons left">attach_money</i></button>
             <input value={this.state.value} type="text" placeholder="Importe" />
           </div>
         )
